@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CV de {{ datos.nombre }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <div class="cv-container">
+
+        <h1>{{ datos.nombre }}</h1>
+        <h2>{{ datos.profesion }}</h2>
+
+        <section>
+            <h3>Resumen Profesional</h3>
+            <p>{{ datos.resumen }}</p>
+        </section>
+
+        <section>
+            <h3>Experiencia Laboral</h3>
+            <p>{{ datos.experiencia }}</p>
+        </section>
+
+        <section>
+            <h3>Educación</h3>
+            <p>{{ datos.educacion }}</p>
+        </section>
+
+        <section>
+            <h3>Habilidades</h3>
+            <p>{{ datos.habilidades }}</p>
+        </section>
+
+        <section>
+            <h3>Redes Sociales</h3>
+            <p>LinkedIn: {{ datos.linkedin }}</p>
+            <p>GitHub: {{ datos.github }}</p>
+        </section>
+
+    </div>
+
+</body>
+</html>
