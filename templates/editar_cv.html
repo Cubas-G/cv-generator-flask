@@ -1,0 +1,30 @@
+<h1>Editar CV</h1>
+
+<form method="POST">
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ cv.nombre }}" required>
+
+    <label>Profesión:</label>
+    <input type="text" name="profesion" value="{{ cv.profesion }}" required>
+
+    <label>Resumen:</label>
+    <textarea name="resumen">{{ cv.resumen }}</textarea>
+
+    <label>Experiencia:</label>
+    <textarea name="experiencia">{{ cv.experiencia }}</textarea>
+
+    <label>Educación:</label>
+    <textarea name="educacion">{{ cv.educacion }}</textarea>
+
+    <label>Habilidades:</label>
+    <textarea name="habilidades">{{ cv.habilidades }}</textarea>
+
+    <label>LinkedIn:</label>
+    <input type="text" name="linkedin" value="{{ cv.linkedin }}">
+
+    <label>GitHub:</label>
+    <input type="text" name="github" value="{{ cv.github }}">
+
+    <button type="submit">Guardar cambios</button>
+</form>

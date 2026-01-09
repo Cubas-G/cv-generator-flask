@@ -1,0 +1,12 @@
+<h1>Mis CVs</h1>
+
+<ul>
+    {% for cv in cvs %}
+        <li>
+            <strong>{{ cv.nombre }}</strong> - {{ cv.profesion }}
+            <a href="/ver-cv/{{ cv.id }}">Ver</a>
+            <a href="/editar-cv/{{ cv.id }}">Editar</a>
+            <a href="/eliminar-cv/{{ cv.id }}" onclick="return confirm('¿Eliminar este CV?')">Eliminar</a>
+        </li>
+    {% endfor %}
+</ul>
