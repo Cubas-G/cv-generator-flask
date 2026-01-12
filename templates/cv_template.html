@@ -2,43 +2,91 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>CV de {{ datos.nombre }}</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV generado</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 { color: #333; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; }
+        hr { margin: 20px 0; }
+        a {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        a:hover { background: #0056b3; }
+    </style>
 </head>
+
 <body>
 
-    <div class="cv-container">
+    <h1>{{ datos.nombre }}</h1>
+    <h2>{{ datos.profesion }}</h2>
 
-        <h1>{{ datos.nombre }}</h1>
-        <h2>{{ datos.profesion }}</h2>
+    <hr>
 
-        <section>
-            <h3>Resumen Profesional</h3>
-            <p>{{ datos.resumen }}</p>
-        </section>
-
-        <section>
-            <h3>Experiencia Laboral</h3>
-            <p>{{ datos.experiencia }}</p>
-        </section>
-
-        <section>
-            <h3>Educación</h3>
-            <p>{{ datos.educacion }}</p>
-        </section>
-
-        <section>
-            <h3>Habilidades</h3>
-            <p>{{ datos.habilidades }}</p>
-        </section>
-
-        <section>
-            <h3>Redes Sociales</h3>
-            <p>LinkedIn: {{ datos.linkedin }}</p>
-            <p>GitHub: {{ datos.github }}</p>
-        </section>
-
+    <div class="section">
+        <h3>Datos personales</h3>
+        <p><span class="label">Teléfono:</span> {{ datos.telefono }}</p>
+        <p><span class="label">Dirección:</span> {{ datos.direccion }}</p>
+        <p><span class="label">Email:</span> {{ datos.email_contacto }}</p>
     </div>
+
+    <div class="section">
+        <h3>Resumen profesional</h3>
+        <p>{{ datos.resumen }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Experiencia laboral</h3>
+        <p>{{ datos.experiencia }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Educación</h3>
+        <p>{{ datos.educacion }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Habilidades</h3>
+        <p>{{ datos.habilidades }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Idiomas</h3>
+        <p>{{ datos.idiomas }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Certificaciones</h3>
+        <p>{{ datos.certificaciones }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Proyectos</h3>
+        <p>{{ datos.proyectos }}</p>
+    </div>
+
+    <div class="section">
+        <h3>Redes sociales</h3>
+        <p><strong>LinkedIn:</strong> {{ datos.linkedin }}</p>
+        <p><strong>GitHub:</strong> {{ datos.github }}</p>
+        <p><strong>Twitter:</strong> {{ datos.twitter }}</p>
+        <p><strong>Portfolio:</strong> {{ datos.portfolio }}</p>
+    </div>
+
+    <br>
+    <a href="/mis-cvs">Volver</a>
 
 </body>
 </html>

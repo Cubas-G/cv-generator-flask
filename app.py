@@ -33,15 +33,39 @@ class User(UserMixin, db.Model):
 
 class CV(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Datos personales
     nombre = db.Column(db.String(150))
     profesion = db.Column(db.String(150))
+    telefono = db.Column(db.String(50))
+    direccion = db.Column(db.String(200))
+    email_contacto = db.Column(db.String(150))
+
+    # Contenido del CV
     resumen = db.Column(db.Text)
     experiencia = db.Column(db.Text)
     educacion = db.Column(db.Text)
     habilidades = db.Column(db.Text)
+    idiomas = db.Column(db.Text)
+    certificaciones = db.Column(db.Text)
+    proyectos = db.Column(db.Text)
+
+    # Redes sociales
     linkedin = db.Column(db.String(200))
     github = db.Column(db.String(200))
+    twitter = db.Column(db.String(200))
+    portfolio = db.Column(db.String(200))
+
+    # Relación con usuario
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp(),
+        onupdate=db.func.current_timestamp()
+    )
 
 
 @login_manager.user_loader
@@ -118,19 +142,27 @@ def generar():
     nuevo_cv = CV(
         nombre=datos['nombre'],
         profesion=datos['profesion'],
-        resumen=datos['resumen'],
-        experiencia=datos['experiencia'],
-        educacion=datos['educacion'],
-        habilidades=datos['habilidades'],
-        linkedin=datos['linkedin'],
-        github=datos['github'],
+        telefono=datos.get('telefono'),
+        direccion=datos.get('direccion'),
+        email_contacto=datos.get('email_contacto'),
+        resumen=datos.get('resumen'),
+        experiencia=datos.get('experiencia'),
+        educacion=datos.get('educacion'),
+        habilidades=datos.get('habilidades'),
+        idiomas=datos.get('idiomas'),
+        certificaciones=datos.get('certificaciones'),
+        proyectos=datos.get('proyectos'),
+        linkedin=datos.get('linkedin'),
+        github=datos.get('github'),
+        twitter=datos.get('twitter'),
+        portfolio=datos.get('portfolio'),
         user_id=current_user.id
     )
 
     db.session.add(nuevo_cv)
     db.session.commit()
 
-    return render_template('cv_template.html', datos=datos)
+    return render_template('cv_template.html', datos=nuevo_cv)
 
 
 # ---------------------------------------------------------
@@ -174,12 +206,20 @@ def editar_cv(id):
     if request.method == 'POST':
         cv.nombre = request.form['nombre']
         cv.profesion = request.form['profesion']
-        cv.resumen = request.form['resumen']
-        cv.experiencia = request.form['experiencia']
-        cv.educacion = request.form['educacion']
-        cv.habilidades = request.form['habilidades']
-        cv.linkedin = request.form['linkedin']
-        cv.github = request.form['github']
+        cv.telefono = request.form.get('telefono')
+        cv.direccion = request.form.get('direccion')
+        cv.email_contacto = request.form.get('email_contacto')
+        cv.resumen = request.form.get('resumen')
+        cv.experiencia = request.form.get('experiencia')
+        cv.educacion = request.form.get('educacion')
+        cv.habilidades = request.form.get('habilidades')
+        cv.idiomas = request.form.get('idiomas')
+        cv.certificaciones = request.form.get('certificaciones')
+        cv.proyectos = request.form.get('proyectos')
+        cv.linkedin = request.form.get('linkedin')
+        cv.github = request.form.get('github')
+        cv.twitter = request.form.get('twitter')
+        cv.portfolio = request.form.get('portfolio')
 
         db.session.commit()
         return redirect(url_for('mis_cvs'))

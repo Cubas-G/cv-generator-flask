@@ -2,45 +2,71 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Generador de CV</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Crear CV</title>
 </head>
 <body>
 
-    <h1>Generador de CV</h1>
+    <h1>Crear nuevo CV</h1>
 
-    <form action="/generar" method="POST" enctype="multipart/form-data">
+    <form action="/generar" method="POST">
 
-        <h2>Información Personal</h2>
+        <h2>Datos personales</h2>
+
         <label>Nombre completo:</label>
         <input type="text" name="nombre" required>
 
         <label>Profesión:</label>
         <input type="text" name="profesion" required>
 
+        <label>Teléfono:</label>
+        <input type="text" name="telefono">
+
+        <label>Dirección:</label>
+        <input type="text" name="direccion">
+
+        <label>Email de contacto:</label>
+        <input type="email" name="email_contacto">
+
+        <h2>Contenido del CV</h2>
+
         <label>Resumen profesional:</label>
-        <textarea name="resumen" rows="4" required></textarea>
+        <textarea name="resumen"></textarea>
 
-        <h2>Experiencia Laboral</h2>
-        <textarea name="experiencia" rows="5" placeholder="Describe tu experiencia laboral"></textarea>
+        <label>Experiencia laboral:</label>
+        <textarea name="experiencia"></textarea>
 
-        <h2>Educación</h2>
-        <textarea name="educacion" rows="4" placeholder="Tus estudios"></textarea>
+        <label>Educación:</label>
+        <textarea name="educacion"></textarea>
 
-        <h2>Habilidades</h2>
-        <textarea name="habilidades" rows="3" placeholder="Ej: HTML, CSS, Python, Trabajo en equipo"></textarea>
+        <label>Habilidades:</label>
+        <textarea name="habilidades"></textarea>
 
-        <h2>Redes Sociales</h2>
+        <label>Idiomas:</label>
+        <textarea name="idiomas"></textarea>
+
+        <label>Certificaciones:</label>
+        <textarea name="certificaciones"></textarea>
+
+        <label>Proyectos:</label>
+        <textarea name="proyectos"></textarea>
+
+        <h2>Redes sociales</h2>
+
         <label>LinkedIn:</label>
         <input type="text" name="linkedin">
 
         <label>GitHub:</label>
         <input type="text" name="github">
 
-        <h2>Foto (opcional)</h2>
-        <input type="file" name="foto">
+        <label>Twitter:</label>
+        <input type="text" name="twitter">
 
+        <label>Portfolio:</label>
+        <input type="text" name="portfolio">
+
+        <br><br>
         <button type="submit">Generar CV</button>
+
     </form>
 
 </body>

@@ -1,12 +1,68 @@
-<h1>Mis CVs</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis CVs</title>
 
-<ul>
-    {% for cv in cvs %}
-        <li>
-            <strong>{{ cv.nombre }}</strong> - {{ cv.profesion }}
-            <a href="/ver-cv/{{ cv.id }}">Ver</a>
-            <a href="/editar-cv/{{ cv.id }}">Editar</a>
-            <a href="/eliminar-cv/{{ cv.id }}" onclick="return confirm('¿Eliminar este CV?')">Eliminar</a>
-        </li>
-    {% endfor %}
-</ul>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        a {
+            padding: 6px 12px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a:hover { background: #0056b3; }
+        .delete { background: #dc3545; }
+        .delete:hover { background: #a71d2a; }
+    </style>
+</head>
+
+<body>
+
+    <h1>Mis CVs</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Profesión</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for cv in cvs %}
+        <tr>
+            <td>{{ cv.id }}</td>
+            <td>{{ cv.nombre }}</td>
+            <td>{{ cv.profesion }}</td>
+            <td>
+                <a href="/ver-cv/{{ cv.id }}">Ver</a>
+                <a href="/editar-cv/{{ cv.id }}">Editar</a>
+                <a href="/eliminar-cv/{{ cv.id }}" class="delete">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/dashboard">Volver al panel</a>
+
+</body>
+</html>
