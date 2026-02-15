@@ -1,76 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Editar CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar CV | CV Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
 
-    <h1>Editar CV</h1>
+    <div class="container">
+        <header>
+            <h1>Editar CV</h1>
+            <p class="subtitle">Modifica la información de tu currículum</p>
+        </header>
 
-    <form method="POST">
+        <form method="POST">
 
-        <h2>Datos personales</h2>
+            <section class="form-section">
+                <h2>Datos Personales</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Nombre completo</label>
+                        <input type="text" name="nombre" value="{{ cv.nombre }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Profesión</label>
+                        <input type="text" name="profesion" value="{{ cv.profesion }}" required>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono" value="{{ cv.telefono }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Email de contacto</label>
+                        <input type="email" name="email_contacto" value="{{ cv.email_contacto }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" value="{{ cv.direccion }}">
+                </div>
+            </section>
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" value="{{ cv.nombre }}" required>
+            <section class="form-section">
+                <h2>Contenido Profesional</h2>
+                <div class="form-group">
+                    <label>Resumen profesional</label>
+                    <textarea name="resumen">{{ cv.resumen }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Experiencia laboral</label>
+                    <textarea name="experiencia">{{ cv.experiencia }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Educación</label>
+                    <textarea name="educacion">{{ cv.educacion }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Habilidades</label>
+                    <textarea name="habilidades">{{ cv.habilidades }}</textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Idiomas</label>
+                        <textarea name="idiomas">{{ cv.idiomas }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Certificaciones</label>
+                        <textarea name="certificaciones">{{ cv.certificaciones }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Proyectos</label>
+                    <textarea name="proyectos">{{ cv.proyectos }}</textarea>
+                </div>
+            </section>
 
-        <label>Profesión:</label>
-        <input type="text" name="profesion" value="{{ cv.profesion }}" required>
+            <section class="form-section">
+                <h2>Redes Sociales y Enlaces</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>LinkedIn</label>
+                        <input type="text" name="linkedin" value="{{ cv.linkedin }}">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub</label>
+                        <input type="text" name="github" value="{{ cv.github }}">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Twitter</label>
+                        <input type="text" name="twitter" value="{{ cv.twitter }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Portfolio</label>
+                        <input type="text" name="portfolio" value="{{ cv.portfolio }}">
+                    </div>
+                </div>
+            </section>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" value="{{ cv.telefono }}">
+            <div class="form-actions">
+                <a href="/mis-cvs" class="btn btn-secondary">Cancelar</a>
+                <button type="submit">Guardar Cambios</button>
+            </div>
 
-        <label>Dirección:</label>
-        <input type="text" name="direccion" value="{{ cv.direccion }}">
-
-        <label>Email de contacto:</label>
-        <input type="email" name="email_contacto" value="{{ cv.email_contacto }}">
-
-        <h2>Contenido del CV</h2>
-
-        <label>Resumen:</label>
-        <textarea name="resumen">{{ cv.resumen }}</textarea>
-
-        <label>Experiencia:</label>
-        <textarea name="experiencia">{{ cv.experiencia }}</textarea>
-
-        <label>Educación:</label>
-        <textarea name="educacion">{{ cv.educacion }}</textarea>
-
-        <label>Habilidades:</label>
-        <textarea name="habilidades">{{ cv.habilidades }}</textarea>
-
-        <label>Idiomas:</label>
-        <textarea name="idiomas">{{ cv.idiomas }}</textarea>
-
-        <label>Certificaciones:</label>
-        <textarea name="certificaciones">{{ cv.certificaciones }}</textarea>
-
-        <label>Proyectos:</label>
-        <textarea name="proyectos">{{ cv.proyectos }}</textarea>
-
-        <h2>Redes sociales</h2>
-
-        <label>LinkedIn:</label>
-        <input type="text" name="linkedin" value="{{ cv.linkedin }}">
-
-        <label>GitHub:</label>
-        <input type="text" name="github" value="{{ cv.github }}">
-
-        <label>Twitter:</label>
-        <input type="text" name="twitter" value="{{ cv.twitter }}">
-
-        <label>Portfolio:</label>
-        <input type="text" name="portfolio" value="{{ cv.portfolio }}">
-
-        <br><br>
-        <button type="submit">Guardar cambios</button>
-
-    </form>
-
-    <br>
-    <a href="/mis-cvs">Volver</a>
+        </form>
+    </div>
 
 </body>
+
 </html>

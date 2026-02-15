@@ -1,41 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel principal</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #eef1f5;
-            padding: 40px;
-        }
-        h1 { text-align: center; }
-        .menu {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-        a {
-            padding: 15px 25px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-        a:hover { background: #0056b3; }
-    </style>
+    <title>Panel Principal | CV Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
-    <h1>Bienvenido a tu panel</h1>
+    <div class="container">
+        <header>
+            <h1>Bienvenido a tu panel</h1>
+            <p class="subtitle">Gestiona tus currículums y crea nuevos diseños profesionales</p>
+        </header>
 
-    <div class="menu">
-        <a href="/">Crear nuevo CV</a>
-        <a href="/mis-cvs">Mis CVs</a>
-        <a href="/logout">Cerrar sesión</a>
+        <div class="menu">
+            <a href="/">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+                Crear nuevo CV
+            </a>
+            <a href="/mis-cvs">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🗂️</div>
+                Mis CVs
+            </a>
+            <a href="/logout" style="border-color: #fee2e2; color: #ef4444;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚪</div>
+                Cerrar sesión
+            </a>
+        </div>
     </div>
 </body>
+
 </html>

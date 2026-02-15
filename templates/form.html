@@ -2,72 +2,113 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear CV | CV Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-    <h1>Crear nuevo CV</h1>
+    <div class="container">
+        <header>
+            <h1>Generar Nuevo CV</h1>
+            <p class="subtitle">Completa tu información para crear un CV profesional</p>
+        </header>
 
-    <form action="/generar" method="POST">
+        <form action="/generar" method="POST">
+            
+            <section class="form-section">
+                <h2>Datos Personales</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Nombre completo</label>
+                        <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Profesión</label>
+                        <input type="text" name="profesion" placeholder="Ej: Desarrollador Full-stack" required>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono" placeholder="+504 9999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Email de contacto</label>
+                        <input type="email" name="email_contacto" placeholder="nombre@ejemplo.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" placeholder="Ej: Colonia Miraflores, Tegucigalpa">
+                </div>
+            </section>
 
-        <h2>Datos personales</h2>
+            <section class="form-section">
+                <h2>Contenido Profesional</h2>
+                <div class="form-group">
+                    <label>Resumen profesional</label>
+                    <textarea name="resumen" placeholder="Describe brevemente tu perfil..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Experiencia laboral</label>
+                    <textarea name="experiencia" placeholder="Empresa - Cargo (Fecha inicio - fin)..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Educación</label>
+                    <textarea name="educacion" placeholder="Institución - Título obtenido..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Habilidades</label>
+                    <textarea name="habilidades" placeholder="Ej: Python, SQL, Resolución de problemas..."></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Idiomas</label>
+                        <textarea name="idiomas" placeholder="Inglés (C1), Español (Nativo)..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Certificaciones</label>
+                        <textarea name="certificaciones" placeholder="AWS Certified, Google IT Support..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Proyectos</label>
+                    <textarea name="proyectos" placeholder="Nombre del proyecto - Link o descripción corta..."></textarea>
+                </div>
+            </section>
 
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" required>
+            <section class="form-section">
+                <h2>Redes Sociales y Enlaces</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>LinkedIn</label>
+                        <input type="text" name="linkedin" placeholder="linkedin.com/in/usuario">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub</label>
+                        <input type="text" name="github" placeholder="github.com/usuario">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Twitter</label>
+                        <input type="text" name="twitter" placeholder="twitter.com/usuario">
+                    </div>
+                    <div class="form-group">
+                        <label>Portfolio</label>
+                        <input type="text" name="portfolio" placeholder="miweb.com">
+                    </div>
+                </div>
+            </section>
 
-        <label>Profesión:</label>
-        <input type="text" name="profesion" required>
+            <div class="form-actions">
+                <a href="/dashboard" class="btn btn-secondary">Cancelar</a>
+                <button type="submit">Generar CV</button>
+            </div>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono">
-
-        <label>Dirección:</label>
-        <input type="text" name="direccion">
-
-        <label>Email de contacto:</label>
-        <input type="email" name="email_contacto">
-
-        <h2>Contenido del CV</h2>
-
-        <label>Resumen profesional:</label>
-        <textarea name="resumen"></textarea>
-
-        <label>Experiencia laboral:</label>
-        <textarea name="experiencia"></textarea>
-
-        <label>Educación:</label>
-        <textarea name="educacion"></textarea>
-
-        <label>Habilidades:</label>
-        <textarea name="habilidades"></textarea>
-
-        <label>Idiomas:</label>
-        <textarea name="idiomas"></textarea>
-
-        <label>Certificaciones:</label>
-        <textarea name="certificaciones"></textarea>
-
-        <label>Proyectos:</label>
-        <textarea name="proyectos"></textarea>
-
-        <h2>Redes sociales</h2>
-
-        <label>LinkedIn:</label>
-        <input type="text" name="linkedin">
-
-        <label>GitHub:</label>
-        <input type="text" name="github">
-
-        <label>Twitter:</label>
-        <input type="text" name="twitter">
-
-        <label>Portfolio:</label>
-        <input type="text" name="portfolio">
-
-        <br><br>
-        <button type="submit">Generar CV</button>
-
-    </form>
+        </form>
+    </div>
 
 </body>
 </html>
