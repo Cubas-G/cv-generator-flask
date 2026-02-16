@@ -33,9 +33,11 @@
                         <td>{{ cv.profesion }}</td>
                         <td>
                             <div class="actions">
-                                <a href="/ver-cv/{{ cv.id }}" class="btn-small btn-view">Ver</a>
-                                <a href="/editar-cv/{{ cv.id }}" class="btn-small btn-edit">Editar</a>
-                                <a href="/eliminar-cv/{{ cv.id }}" class="btn-small btn-delete">Eliminar</a>
+                                <a href="{{ url_for('ver_cv', id=cv.id) }}">Ver</a> |
+                                <a href="{{ url_for('editar_cv', id=cv.id) }}">Editar</a> |
+                                <a href="{{ url_for('exportar_pdf', id=cv.id) }}" class="btn-pdf">Descargar PDF</a> |
+                                <a href="{{ url_for('eliminar_cv', id=cv.id) }}"
+                                    onclick="return confirm('¿Estás seguro?')">Eliminar</a>
                             </div>
                         </td>
                     </tr>

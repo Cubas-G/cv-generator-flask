@@ -16,7 +16,13 @@
             <p class="subtitle">Modifica la información de tu currículum</p>
         </header>
 
-        <form method="POST">
+        <form action="/editar-cv/{{ cv.id }}" method="POST" enctype="multipart/form-data">
+            <label for="foto_perfil">Foto de Perfil:</label>
+            {% if cv.foto_perfil %}
+            <img src="{{ url_for('static', filename='uploads/' + cv.foto_perfil) }}" alt="Foto actual"
+                style="width: 100px; display: block; margin-bottom: 10px;">
+            {% endif %}
+            <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*">
 
             <section class="form-section">
                 <h2>Datos Personales</h2>

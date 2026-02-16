@@ -1,35 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV generado</title>
 
     <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #ffffff;
-            padding: 40px;
-            max-width: 800px;
-            margin: auto;
+            color: #333;
+            line-height: 1.2;
+            padding: 0;
+            margin: 0;
         }
-        h1, h2 { color: #333; }
-        .section { margin-bottom: 25px; }
-        .label { font-weight: bold; }
-        hr { margin: 20px 0; }
-        a {
+
+        h1 {
+            font-size: 24pt;
+            margin-bottom: 5pt;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 16pt;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 15pt;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 14pt;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3pt;
+            margin-top: 15pt;
+            margin-bottom: 8pt;
+        }
+
+        .section {
+            margin-bottom: 10pt;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        p {
+            margin: 4pt 0;
+        }
+
+        hr {
+            margin: 10pt 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+        .no-print {
+            margin-top: 20px;
+        }
+
+        /* Use a class on body to hide elements in PDF */
+        .is-pdf .no-print {
+            display: none !important;
+        }
+
+        .btn-volver {
+            display: inline-block;
             padding: 10px 15px;
             background: #007bff;
-            color: white;
+            color: white !important;
             border-radius: 6px;
             text-decoration: none;
         }
-        a:hover { background: #0056b3; }
+
+        .photo-container {
+            text-align: center;
+            margin-bottom: 10pt;
+        }
+
+        .profile-photo {
+            width: 120pt;
+            height: 120pt;
+        }
     </style>
 </head>
 
-<body>
+<body class="{% if is_pdf %}is-pdf{% endif %}">
 
+    {% if datos.foto_perfil %}
+    <div class="photo-container">
+        <img src="{{ url_for('static', filename='uploads/' + datos.foto_perfil) }}" alt="Foto de Perfil"
+            class="profile-photo">
+    </div>
+    {% endif %}
     <h1>{{ datos.nombre }}</h1>
     <h2>{{ datos.profesion }}</h2>
 
@@ -79,14 +148,16 @@
 
     <div class="section">
         <h3>Redes sociales</h3>
-        <p><strong>LinkedIn:</strong> {{ datos.linkedin }}</p>
-        <p><strong>GitHub:</strong> {{ datos.github }}</p>
-        <p><strong>Twitter:</strong> {{ datos.twitter }}</p>
-        <p><strong>Portfolio:</strong> {{ datos.portfolio }}</p>
+        <p><span class="label">LinkedIn:</span> {{ datos.linkedin }}</p>
+        <p><span class="label">GitHub:</span> {{ datos.github }}</p>
+        <p><span class="label">Twitter:</span> {{ datos.twitter }}</p>
+        <p><span class="label">Portfolio:</span> {{ datos.portfolio }}</p>
     </div>
 
-    <br>
-    <a href="/mis-cvs">Volver</a>
+    <div class="no-print">
+        <a href="/mis-cvs" class="btn-volver">Volver</a>
+    </div>
 
 </body>
+
 </html>

@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
     LoginManager, UserMixin, login_user,
     login_required, logout_user, current_user
 )
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import os
+import io
+from xhtml2pdf import pisa
 
 # ---------------------------------------------------------
 # CONFIGURACIÓN PRINCIPAL
@@ -13,6 +17,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clave-super-secreta'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 db = SQLAlchemy(app)
 
@@ -55,6 +68,7 @@ class CV(db.Model):
     github = db.Column(db.String(200))
     twitter = db.Column(db.String(200))
     portfolio = db.Column(db.String(200))
+    foto_perfil = db.Column(db.String(250))
 
     # Relación con usuario
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -121,7 +135,9 @@ def logout():
 
 @app.route('/')
 def home():
-    return render_template('form.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    return redirect(url_for('login'))
 
 
 @app.route('/dashboard')
@@ -138,6 +154,13 @@ def dashboard():
 @login_required
 def generar():
     datos = request.form
+    
+    filename = None
+    if 'foto_perfil' in request.files:
+        file = request.files['foto_perfil']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     nuevo_cv = CV(
         nombre=datos['nombre'],
@@ -156,6 +179,7 @@ def generar():
         github=datos.get('github'),
         twitter=datos.get('twitter'),
         portfolio=datos.get('portfolio'),
+        foto_perfil=filename,
         user_id=current_user.id
     )
 
@@ -221,6 +245,13 @@ def editar_cv(id):
         cv.twitter = request.form.get('twitter')
         cv.portfolio = request.form.get('portfolio')
 
+        if 'foto_perfil' in request.files:
+            file = request.files['foto_perfil']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                cv.foto_perfil = filename
+
         db.session.commit()
         return redirect(url_for('mis_cvs'))
 
@@ -246,8 +277,59 @@ def eliminar_cv(id):
 
 
 # ---------------------------------------------------------
+# EXPORTAR PDF
+# ---------------------------------------------------------
+
+def link_callback(uri, rel):
+    # use short variable names
+    sUrl = '/static/'
+    sDir = os.path.join(app.root_path, 'static')
+
+    if uri.startswith(sUrl):
+        path = os.path.join(sDir, uri.replace(sUrl, "").replace("/", os.sep))
+    else:
+        return uri
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+        return uri
+        
+    return path
+
+@app.route('/exportar-pdf/<int:id>')
+@login_required
+def exportar_pdf(id):
+    cv = CV.query.get_or_404(id)
+
+    if cv.user_id != current_user.id:
+        return "No tienes permiso para exportar este CV"
+
+    html = render_template('cv_template.html', datos=cv, is_pdf=True)
+    
+    result = io.BytesIO()
+    pisa_status = pisa.CreatePDF(
+        io.BytesIO(html.encode("utf-8")), 
+        dest=result,
+        link_callback=link_callback
+    )
+
+    if pisa_status.err:
+        return "Error al generar el PDF"
+
+    result.seek(0)
+    return send_file(
+        result,
+        as_attachment=True,
+        download_name=f'CV_{secure_filename(cv.nombre)}.pdf',
+        mimetype='application/pdf'
+    )
+
+
+# ---------------------------------------------------------
 # EJECUCIÓN DEL SERVIDOR
 # ---------------------------------------------------------
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
