@@ -150,9 +150,12 @@ def dashboard():
 # CREAR Y GUARDAR CV
 # ---------------------------------------------------------
 
-@app.route('/generar', methods=['POST'])
+@app.route('/generar', methods=['GET', 'POST'])
 @login_required
 def generar():
+    if request.method == 'GET':
+        return render_template('form.html')
+    
     datos = request.form
     
     filename = None
